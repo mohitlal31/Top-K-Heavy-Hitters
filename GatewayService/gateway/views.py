@@ -19,6 +19,7 @@ class EditView(generics.CreateAPIView):
             validated_data = serializer.validated_data
 
             self.kafka_producer.publish(validated_data)
+            serializer.save()
 
             return Response(
                 {"message": "Data sent to Kafka successfully"},
