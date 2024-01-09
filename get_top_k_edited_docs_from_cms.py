@@ -1,6 +1,7 @@
 import json
 import sqlite3
 
+from prettytable import PrettyTable
 from probables import CountMinSketch, HeavyHitters
 
 
@@ -51,8 +52,22 @@ def display_top_k_elements(cms: CountMinSketch, keys: set, k):
     hh = HeavyHitters(10, width=cms.width, depth=cms.depth)
     for key in keys:
         hh.add(key, cms.check(key))
-    print(hh.heavy_hitters)
-    return hh.heavy_hitters
+
+    # Create a PrettyTable for displaying the results
+    table = PrettyTable()
+    table.field_names = ["document", "count"]
+
+    # Sort the heavy hitters by count in descending order
+    sorted_hh = sorted(hh.heavy_hitters.items(), key=lambda x: x[1], reverse=True)
+
+    # Add rows to the PrettyTable
+    for item in sorted_hh[:k]:
+        table.add_row([item[0], item[1]])
+
+    # Print the PrettyTable
+    print(table)
+
+    return table
 
 
 # Set your SQLite database file path

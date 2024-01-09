@@ -23,7 +23,7 @@ class ConsumerEditCreated(threading.Thread):
         threading.Thread.__init__(self)
         self.consumer = Consumer(CONF)
         self.last_process_time = time.time()
-        self.cms = countminsketch.CountMinSketch(width=1000, depth=5)
+        self.cms = countminsketch.CountMinSketch(width=500, depth=5)
         self.keys = set()
 
     def run(self):

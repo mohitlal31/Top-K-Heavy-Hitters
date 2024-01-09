@@ -9,7 +9,7 @@ async def send_post_request():
     url = "http://127.0.0.1:8000/api/edit"
 
     while True:
-        document_name = "".join(random.choice(string.ascii_lowercase) for _ in range(3))
+        document_name = "".join(random.choice(string.ascii_lowercase) for _ in range(2))
         data = {"document": document_name}
 
         async with httpx.AsyncClient() as client:
